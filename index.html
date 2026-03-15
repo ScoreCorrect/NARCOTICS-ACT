@@ -126,7 +126,7 @@
         <div class="header">
             <span class="quiz-title">NARCOTICS DRUGS ACT</span>
             <div style="display: flex; align-items: center; gap: 8px;">
-                <span class="timer" id="timer">30:00</span>
+                <span class="timer" id="timer">--:--</span>
                 <button class="btn-menu" onclick="toggleMenu()">☰</button>
             </div>
         </div>
@@ -163,20 +163,21 @@
     </div>
 
     <script>
+        // --- EDITABLE SECTION ---
+        const QUIZ_UNIQUE_ID = "NARCOTICS_ACT_001"; // Change this for new topics
+        const ALLOW_MULTIPLE_ENTRIES = true; // Toggle to true to disable 24h block
+        const QUIZ_TIME_MINUTES = 30; // CHANGE YOUR TIMER HERE
+        // ------------------------
+
         let currentIdx = 0;
         let userAnswers = new Array(quizQuestions.length).fill(null);
-        let timeLeft = 30 * 60;
+        let timeLeft = QUIZ_TIME_MINUTES * 60;
         let timerInterval;
 
         const FORM_ID = "1FAIpQLSdCkXL5LBwnm_n74ClLFsC4k4QVWJXrm7CfzzkhKmWe_KIKyg"; 
         const ENTRY_NAME = "entry.1501316275";
         const ENTRY_SCORE = "entry.1274011120";
         const ENTRY_TIME = "entry.601190537";
-
-        // --- EDITABLE SECTION ---
-        const QUIZ_UNIQUE_ID = "NARCOTICS_ACT_001"; // Change this for new topics
-        const ALLOW_MULTIPLE_ENTRIES = true; // Toggle to true to disable 24h block
-        // ------------------------
 
         window.onload = function() {
             const savedData = localStorage.getItem('quiz_progress_' + QUIZ_UNIQUE_ID);
@@ -315,7 +316,7 @@
             });
             const finalScore = score.toFixed(2);
             const name = document.getElementById('userName').value;
-            const timeTaken = Math.floor((30 * 60 - timeLeft) / 60) + " mins";
+            const timeTaken = Math.floor((QUIZ_TIME_MINUTES * 60 - timeLeft) / 60) + " mins";
 
             const formUrl = `https://docs.google.com/forms/d/e/${FORM_ID}/formResponse?${ENTRY_NAME}=${encodeURIComponent(name)}&${ENTRY_SCORE}=${finalScore}&${ENTRY_TIME}=${timeTaken}&submit=Submit`;
             fetch(formUrl, { mode: 'no-cors' });
